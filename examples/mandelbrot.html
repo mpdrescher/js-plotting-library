@@ -1,0 +1,27 @@
+<script src="graphics.js"></script>
+<body>
+    <script>
+        var gfx = new Graphics();
+        gfx.setUpdateFunction(
+            function(gfx) {
+                gfx.setViewWindow(0, 0, 2.0);
+                gfx.mapFunction(function(x, y) {
+                    var cx = x;
+                    var cy = y;
+                    var maxiter = 20;
+                    for (var iter = 0; iter < maxiter; iter++) {
+                        var len = Math.sqrt(cx*cx + cy*cy);
+                        if (len > 2.0) {
+                            return gfx.rgb((iter/maxiter)*255, 0, 0)
+                        }
+                        var nx = cx*cx - cy*cy;
+                        var ny = 2*cx*cy;
+                        cx = nx + x;
+                        cy = ny + y;
+                    }
+                    return gfx.rgb(0, 0, 0);
+                });
+            }
+        );
+    </script>
+</body>

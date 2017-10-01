@@ -1,0 +1,30 @@
+<script src="graphics.js"></script>
+<body>
+    <script>
+        var gfx = new Graphics();
+        gfx.setUpdateFunction(
+            function(gfx, mx, my) {
+                gfx.setViewWindow(0, 0, 3.0);
+                gfx.drawAxes();
+		        gfx.drawGrid(.5, "#eeeeee", false);
+		        gfx.drawGrid(1);
+		        gfx.drawCircle(0, 0, 1);
+                gfx.drawMarker(mx, my, "#000000", 5);
+
+                var phi = Math.atan(my / mx);
+                var px = mx > 0 ? Math.cos(phi) : Math.cos(phi + Math.PI);
+                var py = mx > 0 ? Math.sin(phi) : Math.sin(phi + Math.PI);
+                
+                gfx.drawLineThrough(0, 0, px, py);
+                gfx.drawLineThrough(1, 1, 1, 0);
+                
+                gfx.drawLine(px, py, 0, py, "#0000ff", 2); // sin
+                gfx.drawLine(1, 0, 1, Math.tan(phi), "#ff0000", 2); // tan
+                gfx.drawLine(px, py, px, 0, "#00ff00", 2); // cos
+                
+                gfx.fillDot(px, py, "#000000", 5);
+                gfx.fillDot(1, Math.tan(phi), "#000000", 5);
+            }, true
+        );
+    </script>
+</body>
